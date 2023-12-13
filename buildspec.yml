@@ -1,0 +1,31 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo "Logging in to Amazon ECR..."
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ACCOUNT.dkr.ecr.us-east-1.amazonaws.com
+      - ROR_URI=$ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/root_ror
+      - NGINX_URI=$ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/root_nginx
+      - echo "Docker Hub login successful."
+      - echo "Amazon ECR login successful."
+  build:
+    commands:
+      - echo "Build started on $(date)"
+      - echo "Building Docker image for ROR..."
+      - docker build -t $ROR_URI:latest .
+      - echo "Tagging Docker image for ROR..."
+      - docker tag $ROR_URI:latest $ROR_URI:latest
+      - echo "Changing directory to ./nginx..."
+      - cd ./nginx
+      - echo "Building Docker image for NGINX..."
+      - docker build -t $NGINX_URI:latest .
+      - echo "Tagging Docker image for NGINX..."
+      - docker tag $NGINX_URI:latest $NGINX_URI:latest
+  post_build:
+    commands:
+      - echo "Build completed on $(date)"
+      - echo "Pushing the Docker ROR image..."
+      - docker push $ROR_URI:latest
+      - echo "Pushing the Docker NGINX image..."
+      - docker push $NGINX_URI:latest
