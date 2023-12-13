@@ -29,6 +29,12 @@ services:
       - db
     ports:
       - "3000:3000"
+  demo-nginx:
+    build: nginx/
+    ports:
+      - "80:80"
+    depends_on:
+      - demo-web  
 
 volumes:
   postgres_data: {}
