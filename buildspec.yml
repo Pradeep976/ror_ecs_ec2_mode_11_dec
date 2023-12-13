@@ -4,6 +4,7 @@ phases:
   pre_build:
     commands:
       - echo "Logging in to Amazon ECR..."
+      - echo $ACCOUNT
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ACCOUNT.dkr.ecr.us-east-1.amazonaws.com
       - ROR_URI=$ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/root_ror
       - NGINX_URI=$ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/root_nginx
