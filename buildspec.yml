@@ -5,6 +5,7 @@ phases:
     commands:
       - echo "Logging in to Amazon ECR..."
       - echo $ACCOUNT
+      - docker login -u pradeepsaravanan -p pradeep@docker
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 398322429584.dkr.ecr.us-east-1.amazonaws.com
       - ROR_URI=$ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/root_ror
       - NGINX_URI=$ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/root_nginx 
@@ -32,4 +33,4 @@ phases:
       - echo "Pushing the Docker NGINX image..."
       - docker push $NGINX_URI:latest
 artifacts:
-    files: imagedefinitions.json
+    files: imagedefinitions.json 
