@@ -1,0 +1,10 @@
+[
+    {
+      "name": "demo-web",
+      "imageUri": "398322429584.dkr.ecr.us-east-1.amazonaws.com/root_ror:latest"
+    },
+    {
+      "name": "demo-nginx",
+      "imageUri": "398322429584.dkr.ecr.us-east-1.amazonaws.com/root_nginx:latest"
+    }
+  ]
