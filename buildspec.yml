@@ -31,3 +31,5 @@ phases:
       - docker push $ROR_URI:latest
       - echo "Pushing the Docker NGINX image..."
       - docker push $NGINX_URI:latest
+artifacts:
+    files: imagedefinitions.json
